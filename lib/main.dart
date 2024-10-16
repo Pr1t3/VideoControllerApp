@@ -45,7 +45,7 @@ class _IPInputPageState extends State<IPInputPage> {
                 labelText: 'IP-адрес WebSocket-сервера',
                 border: OutlineInputBorder(),
               ),
-              keyboardType: TextInputType.number,
+              keyboardType: TextInputType.text,
             ),
             SizedBox(height: 20),
             ElevatedButton(
