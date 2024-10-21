@@ -145,6 +145,25 @@ class _VideoControlPageState extends State<VideoControlPage> {
               },
               child: Text('Pause'),
             ),
+            SizedBox(height: 20),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,  // Центрируем кнопки по горизонтали
+              children: <Widget>[
+                ElevatedButton(
+                  onPressed: () {
+                    sendCommand('left10');
+                  },
+                  child: Text('Left 10 sec'),
+                ),
+                SizedBox(width: 20),  // Отступ между кнопками
+                ElevatedButton(
+                  onPressed: () {
+                    sendCommand('right10');
+                  },
+                  child: Text('Right 10 sec'),
+                ),
+              ],
+            ),
           ],
         ),
       ),
