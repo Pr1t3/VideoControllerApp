@@ -87,7 +87,7 @@ class VideoControlPage extends StatefulWidget {
 
 class _VideoControlPageState extends State<VideoControlPage> {
   WebSocketChannel? channel;
-
+  TextEditingController _linkController = TextEditingController();
   @override
   void initState() {
     super.initState();
@@ -113,6 +113,15 @@ class _VideoControlPageState extends State<VideoControlPage> {
       channel!.sink.add(command);
     } else {
       print('Ошибка: канал WebSocket не подключен');
+    }
+  }
+
+  void sendLink() {
+    String link = _linkController.text.trim();
+    if (link.isNotEmpty && Uri.tryParse(link)?.hasAbsolutePath == true) {
+      sendCommand('openLink:$link');  // Отправляем команду открытия ссылки через WebSocket
+    } else {
+      print('Ошибка: неверный формат ссылки');
     }
   }
 
@@ -163,6 +172,26 @@ class _VideoControlPageState extends State<VideoControlPage> {
                   child: Text('Right 10 sec'),
                 ),
               ],
+            ),
+            SizedBox(height: 20),
+            ElevatedButton(
+              onPressed: () {
+                sendCommand('toggleFullscreen');
+              },
+              child: Text('Toggle Fullscreen'),
+            ),
+            SizedBox(height: 20),
+            TextField(
+              controller: _linkController,
+              decoration: InputDecoration(
+                labelText: 'Введите ссылку для перехода',
+                border: OutlineInputBorder(),
+              ),
+            ),
+            SizedBox(height: 20),
+            ElevatedButton(
+              onPressed: sendLink,
+              child: Text('Перейти по ссылке'),
             ),
           ],
         ),
